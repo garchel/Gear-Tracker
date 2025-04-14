@@ -4,11 +4,9 @@ import EquipmentSearch from "./EquipmentSearch";
 
 const Header = () => {
   return (
-    <header className="bg-white shadow-sm py-2">
+    <header className="bg-white shadow-sm py-2" role="banner">
       <div className="container mx-auto px-4 flex items-center justify-between">
         <div className="flex items-center">
-          
-          
           <div className="flex items-end">
             <h1 className="text-4xl font-heading font-bold text-[#0047AB]">
               <span className="ml-2">Gear Tracker</span>

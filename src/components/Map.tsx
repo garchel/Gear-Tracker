@@ -131,7 +131,7 @@ const Map: FC = () => {
 
   return (
     <div className="relative h-full">
-      <h2 className="text-sm font-medium text-gray-600 mb-3 " >Mapa de Rastreamento</h2>
+      <h2 className="text-sm font-medium text-gray-600 mb-3" id="map-heading">Mapa de Rastreamento</h2>
       
       {/* Controles de tempo posicionados acima do mapa para fácil acesso */}
       <TimeControls 
@@ -148,6 +148,7 @@ const Map: FC = () => {
           zoom={12}
           className="h-full w-full"
           style={{ height: '100%', width: '100%' }}
+          aria-labelledby="map-heading"
         >
           {/* Ajusta o mapa quando o tamanho da janela muda */}
           <MapAdjuster />

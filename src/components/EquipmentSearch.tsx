@@ -72,20 +72,19 @@ const EquipmentSearch: FC = () => {
           className="pl-9 pr-4 py-2 w-full"
           value={searchTerm}
           onChange={handleSearch}
-          // Reabre o dropdown ao focar, se houver um termo de busca
           onFocus={() => searchTerm.trim() !== "" && setIsDropdownOpen(true)}
           aria-label="Buscar equipamentos"
           aria-expanded={isDropdownOpen}
-          aria-controls="search-results"
+          aria-controls={isDropdownOpen ? "search-results" : undefined}
+          aria-autocomplete="list"
+          role="combobox"
         />
-        {/* Ícone posicionado dentro do campo para interface consistente */}
         <Search 
           className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-400" 
           aria-hidden="true"
         />
       </div>
 
-      {/* Componente de resultados separado para melhor organização e reutilização */}
       <SearchResults 
         results={searchResults}
         isOpen={isDropdownOpen}

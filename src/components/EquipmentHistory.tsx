@@ -88,8 +88,8 @@ const EquipmentHistory: FC = () => {
   if (!selectedEquipmentId) return null;
   
   return (
-    <div>
-      <h3 className="text-sm font-medium text-gray-700 mb-2">
+    <div aria-labelledby="history-heading">
+      <h3 id="history-heading" className="text-sm font-medium text-gray-700 mb-2">
         Histórico de Estados
       </h3>
       
@@ -97,14 +97,19 @@ const EquipmentHistory: FC = () => {
         className="overflow-y-auto max-h-[300px] pr-1"
         role="log"
         aria-label="Histórico de estados do equipamento"
+        aria-live="polite"
       >
-        {groupedHistory.map((group, groupIndex) => (
-          <HistoryGroup 
-            key={groupIndex}
-            group={group}
-            onSelectEntry={handleSelectEntry}
-          />
-        ))}
+        {groupedHistory.length > 0 ? (
+          groupedHistory.map((group, groupIndex) => (
+            <HistoryGroup 
+              key={groupIndex}
+              group={group}
+              onSelectEntry={handleSelectEntry}
+            />
+          ))
+        ) : (
+          <p className="text-gray-500 text-sm italic">Nenhum histórico disponível</p>
+        )}
       </div>
     </div>
   );

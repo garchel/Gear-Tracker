@@ -41,13 +41,17 @@ const EquipmentDetails = () => {
   return (
     <div 
       className={`bg-white rounded-lg shadow-sm p-3 ${fadeClass}`}
-      aria-label="Equipment details"
+      aria-labelledby="equipment-detail-heading"
+      role="region"
     >
       <div className="flex justify-between items-center mb-3">
-        <h2 className="text-lg font-semibold text-gray-800">
+        <h2 id="equipment-detail-heading" className="text-lg font-semibold text-gray-800">
           {getEquipmentName(selectedEquipmentId)}
         </h2>
-        <CloseButton onClick={closeEquipmentHistory} />
+        <CloseButton 
+          onClick={closeEquipmentHistory} 
+          aria-label="Fechar detalhes do equipamento"
+        />
       </div>
 
       {/* Componentes separados para cada seção de métricas para melhor manutenção */}

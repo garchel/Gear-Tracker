@@ -53,15 +53,15 @@ const EquipmentSummary: FC = () => {
         // Oculta o resumo quando um equipamento específico é selecionado
         // Usa animação de fade para transição suave entre visualizações
         <FadeContainer isVisible={!selectedEquipmentId}>
-            <div className="bg-white rounded-lg shadow-sm p-3">
+            <div className="bg-white rounded-lg shadow-sm p-3" aria-labelledby="summary-heading">
                 <div className="flex items-center justify-between mb-2">
-                    <h2 className="text-sm font-medium text-gray-600">Resumo de Equipamentos</h2>
-                    <span className="bg-gray-100 text-gray-700 text-xs font-medium px-2 py-1 rounded-full">
+                    <h2 id="summary-heading" className="text-sm font-medium text-gray-600">Resumo de Equipamentos</h2>
+                    <span className="bg-gray-100 text-gray-700 text-xs font-medium px-2 py-1 rounded-full" aria-live="polite">
                         Total: {equipmentStats.total}
                     </span>
                 </div>
                 
-                <div className="flex flex-wrap gap-3">
+                <div className="flex flex-wrap gap-3" role="group" aria-label="Estatísticas de equipamentos">
                     {/* Cards de estatísticas com esquema de cores consistente para facilitar identificação visual */}
                     <div className="flex-1 min-w-[130px] basis-0 flex justify-center">
                         <StatCard 

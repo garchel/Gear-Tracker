@@ -18,7 +18,12 @@ const WelcomeScreen = () => {
     transition-opacity duration-1000 ease-in-out ${isVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'}`;
 
   return (
-    <div className={containerClass}>
+    <div 
+      className={containerClass} 
+      role="dialog" 
+      aria-modal="true" 
+      aria-labelledby="welcome-title"
+    >
       <div className="text-center">
         <div className="flex justify-center mb-6">
           <img 
@@ -27,7 +32,7 @@ const WelcomeScreen = () => {
             className="h-24 animate-pulse"
           />
         </div>
-        <h1 className="text-4xl font-bold text-white mb-4">
+        <h1 id="welcome-title" className="text-4xl font-bold text-white mb-4">
           Bem-vindo ao Sistema de Monitoramento
         </h1>
         <p className="text-xl text-blue-100">
@@ -38,8 +43,8 @@ const WelcomeScreen = () => {
         </p>
         
         {/* Indicador de carregamento */}
-        <div className="mt-8 flex justify-center">
-          <div className="w-16 h-16 border-t-4 border-blue-200 border-solid rounded-full animate-spin"></div>
+        <div className="mt-8 flex justify-center" aria-live="polite" aria-label="Carregando">
+          <div className="w-16 h-16 border-t-4 border-blue-200 border-solid rounded-full animate-spin" role="progressbar"></div>
         </div>
       </div>
     </div>

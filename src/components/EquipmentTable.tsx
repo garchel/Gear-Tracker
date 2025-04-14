@@ -91,14 +91,14 @@ const EquipmentTable: FC = () => {
         : "opacity-0 transition-opacity duration-300 ease-out";
 
     return (
-        <div className={`bg-white rounded-lg shadow-sm p-3 ${fadeClass}`}>
+        <div className={`bg-white rounded-lg shadow-sm p-3 ${fadeClass}`} aria-labelledby="equipment-list-heading">
             <div className="flex justify-between items-center mb-3">
-                <h2 className="text-sm font-medium text-gray-600">
+                <h2 id="equipment-list-heading" className="text-sm font-medium text-gray-600">
                     Lista de Equipamentos
                 </h2>
             </div>
             <div className="overflow-x-auto rounded-md border border-gray-100">
-                <table className="min-w-full divide-y divide-gray-100" aria-label="Lista de equipamentos">
+                <table className="min-w-full divide-y divide-gray-100" aria-labelledby="equipment-list-heading">
                     <TableHeader />
                     <tbody className="bg-white divide-y divide-gray-50">
                         {tableData.map((item) => (

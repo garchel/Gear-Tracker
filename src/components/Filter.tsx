@@ -34,12 +34,12 @@ const Filter: FC = () => {
     };
 
     return (
-        <div className="bg-white rounded-lg shadow-sm p-3 mb-4" ref={filterContainerRef}>
+        <div className="bg-white rounded-lg shadow-sm p-3 mb-4" ref={filterContainerRef} aria-labelledby="filter-heading">
             <div className="flex items-center justify-between mb-2">
-                <h2 className="text-sm font-medium text-gray-600">Filtros</h2>
+                <h2 id="filter-heading" className="text-sm font-medium text-gray-600">Filtros</h2>
             </div>
 
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap gap-3" role="group" aria-label="Opções de filtro">
                 {/* Filtro de data limitado ao período de fevereiro/2021 conforme requisitos do projeto */}
                 <div className="flex-1 min-w-[20px]">
                     <DateTimeFilter 
@@ -56,7 +56,6 @@ const Filter: FC = () => {
                         label="Tipo"
                         filters={typeFilters}
                         toggleFilter={toggleTypeFilter}
-                        
                         isOpen={openDropdown === 'type'}
                         onToggle={() => toggleDropdown('type')}
                         colorScheme="blue"
@@ -67,7 +66,6 @@ const Filter: FC = () => {
                         label="Estado"
                         filters={stateFilters}
                         toggleFilter={toggleStateFilter}
-                        
                         isOpen={openDropdown === 'state'}
                         onToggle={() => toggleDropdown('state')}
                         colorScheme="purple"
