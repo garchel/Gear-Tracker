@@ -13,14 +13,12 @@ import { EquipmentDataItem, StateColor, EquipmentType } from './map/types';
 // Import all icons from barrel file
 import icons from '../assets/icons';
 
-// Import equipment states
-import equipmentStates from '../../data/equipmentState.json';
-
 const Map: FC = () => {
   // Obtém dados e funções do contexto global de equipamentos
   const {
     filteredEquipment,
     equipmentModels,
+    equipmentStates, // Now getting from context instead of direct import
     getEquipmentName,
     selectedDate,
     advanceTime, // Controla a navegação temporal no mapa

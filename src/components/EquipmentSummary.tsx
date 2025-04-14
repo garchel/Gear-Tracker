@@ -63,7 +63,7 @@ const EquipmentSummary: FC = () => {
                 
                 <div className="flex flex-wrap gap-3">
                     {/* Cards de estatísticas com esquema de cores consistente para facilitar identificação visual */}
-                    <div className="flex-1 min-w-[120px] basis-0">
+                    <div className="flex-1 min-w-[130px] basis-0 flex justify-center">
                         <StatCard 
                             label="Operando"
                             value={equipmentStats.operating}
@@ -72,7 +72,7 @@ const EquipmentSummary: FC = () => {
                         />
                     </div>
                     
-                    <div className="flex-1 min-w-[120px] basis-0">
+                    <div className="flex-1 min-w-[130px] basis-0 flex justify-center">
                         <StatCard 
                             label="Parados"
                             value={equipmentStats.stopped}
@@ -81,7 +81,7 @@ const EquipmentSummary: FC = () => {
                         />
                     </div>
                     
-                    <div className="flex-1 min-w-[120px] basis-0 xl:w-auto">
+                    <div className="flex-1 min-w-[170px] basis-0 xl:w-auto flex justify-center">
                         <StatCard 
                             label="Manutenção"
                             value={equipmentStats.maintenance}

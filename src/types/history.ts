@@ -1,3 +1,15 @@
+export type StateHistoryEntry = {
+  equipmentId: string;
+  equipmentStateId: string;
+  timestamp: string; // ISO date string
+};
+
+export type PositionHistoryEntry = {
+  equipmentId: string;
+  position: [number, number]; // [latitude, longitude]
+  timestamp: string; // ISO date string
+};
+
 export type HistoryEntry = {
   date: Date;
   state: string;

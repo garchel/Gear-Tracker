@@ -1,13 +1,16 @@
 import { createContext, useMemo, useCallback } from "react";
 import { 
     Equipment, 
-    EquipmentContextType
+    EquipmentContextType,
+    StateHistoryItem,
+    PositionHistoryItem
 } from "../types/equipment";
 import { getEquipmentTypeFromModel } from "../utils/equipmentUtils";
 import { getEquipmentStateAtDate, getEquipmentPositionAtDate } from "../utils/equipmentQueries";
 import { useEquipmentData } from "../hooks/useEquipmentData";
 import { useEquipmentFilters } from "../hooks/useEquipmentFilters";
 import { useEquipmentTimeline } from "../hooks/useEquipmentTimeline";
+import { StateHistoryEntry, PositionHistoryEntry } from "../types/history";
 
 const EquipmentContext = createContext<EquipmentContextType | null>(null);
 
@@ -17,12 +20,60 @@ export function EquipmentProvider({ children }: { children: React.ReactNode }) {
         equipment,
         equipmentModels,
         equipmentStates,
-        stateHistory,
-        positionHistory,
+        stateHistory: rawStateHistory,
+        positionHistory: rawPositionHistory,
         equipmentNames,
         loading,
         error
     } = useEquipmentData();
+
+    // Transform state history data into the expected format
+    const stateHistory = useMemo(() => {
+        const result: Record<string, StateHistoryItem[]> = {};
+        
+        rawStateHistory.forEach((entry: StateHistoryEntry) => {
+            if (!result[entry.equipmentId]) {
+                result[entry.equipmentId] = [];
+            }
+            
+            result[entry.equipmentId].push({
+                date: entry.timestamp,
+                equipmentStateId: entry.equipmentStateId
+            });
+        });
+        
+        return result;
+    }, [rawStateHistory]);
+    
+    // Transform position history data into the expected format
+    const positionHistory = useMemo(() => {
+        const result: Record<string, PositionHistoryItem[]> = {};
+        
+        rawPositionHistory.forEach((entry: PositionHistoryEntry) => {
+            if (!result[entry.equipmentId]) {
+                result[entry.equipmentId] = [];
+            }
+            
+            // Add null check for position data
+            if (entry.position && Array.isArray(entry.position) && entry.position.length >= 2) {
+                result[entry.equipmentId].push({
+                    date: entry.timestamp,
+                    lat: entry.position[0],
+                    lon: entry.position[1]
+                });
+            } else {
+                // Handle missing or invalid position data
+                console.warn(`Invalid position data for equipment ${entry.equipmentId} at ${entry.timestamp}`);
+                result[entry.equipmentId].push({
+                    date: entry.timestamp,
+                    lat: 0, // Default values
+                    lon: 0
+                });
+            }
+        });
+        
+        return result;
+    }, [rawPositionHistory]);
 
     const {
         typeFilters,
@@ -116,6 +167,12 @@ export function EquipmentProvider({ children }: { children: React.ReactNode }) {
         error
     ]);
 
+    // Transform the error object to string for compatibility with EquipmentContextType
+    const errorMessage = useMemo(() => {
+        if (!error) return null;
+        return error.message || 'An unknown error occurred';
+    }, [error]);
+
     // Prepare context value
     const contextValue = useMemo(() => ({
         // Base data
@@ -150,7 +207,7 @@ export function EquipmentProvider({ children }: { children: React.ReactNode }) {
 
         // Status
         loading, 
-        error 
+        error: errorMessage // Use the string error message instead of Error object
     }), [
         equipment, 
         equipmentModels, 
@@ -175,7 +232,7 @@ export function EquipmentProvider({ children }: { children: React.ReactNode }) {
         openEquipmentHistory,
         closeEquipmentHistory,
         loading, 
-        error
+        errorMessage // Update dependency array to use errorMessage
     ]);
 
     return (
